@@ -3,7 +3,7 @@ import Seat from "./Seat";
 
 const SpecialGuestRow = ({ leftTables, rightTables, rowColor }) => {
   return (
-    <div className={`flex justify-between mb-4`}>
+    <div className={`min-w-[768px] flex justify-between mb-4`}>
       <div className={`flex border p-2 gap-2 ${rowColor}`}>
         {leftTables?.map((item) => (
           <Seat key={item} item={item} />

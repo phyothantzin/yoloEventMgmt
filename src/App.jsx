@@ -17,11 +17,11 @@ function App() {
 
   return (
     <>
-      <div className="w-100 h-60 bg-gray-500 flex items-center justify-center mb-4">
-        <p className="font-semibold text-2xl text-white">Stage</p>
+      <div className="w-full py-5 bg-gray-500 flex items-center justify-center mb-4">
+        <p className="font-semibold text-2xl text-white ">Stage</p>
       </div>
       <div className="overflow-x-auto">
-        <div className="flex justify-center gap-2 mb-4">
+        <div className="min-w-[768px] mb-4 md:w-full flex justify-center gap-2">
           {vipTables.map((item) => (
             <Seat key={item} item={item} />
           ))}

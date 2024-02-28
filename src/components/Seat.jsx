@@ -6,11 +6,11 @@ const Seat = ({ item }) => {
 
   return (
     <div
-      className={`flex w-16 h-16 ${
+      className={`flex w-10 h-10 lg:w-16 lg:h-16 ${
         occupied ? "bg-red-600" : "bg-green-400"
       }  border border-spacing-2 align-middle items-center justify-center`}
       key={item}
-      onDoubleClick={() => {
+      onClick={() => {
         setOccupied(!occupied);
       }}
     >
