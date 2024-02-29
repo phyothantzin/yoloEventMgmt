@@ -1,8 +1,27 @@
 import "./App.css";
 import SpecialGuestRow from "./components/SpecialGuestRow";
 import Seat from "./components/Seat";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [data, setData] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch("http://yha.goldenyellowtravel.com/api/v1/rows");
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  console.log(data);
+
   const vipTables = [1, 2, 3, 4, 5, 6, 7, 8];
   const tables = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
