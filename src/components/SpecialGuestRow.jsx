@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
 import Seat from "./Seat";
 
-const SpecialGuestRow = ({ leftTables, rightTables, rowColor }) => {
+const SpecialGuestRow = ({ leftSeats, rightSeats, rowColor }) => {
   return (
     <div className={`min-w-[768px] flex justify-between mb-4`}>
       <div className={`flex border p-2 gap-2 ${rowColor}`}>
-        {leftTables?.map((item) => (
-          <Seat key={item} item={item} />
+        {leftSeats?.map((item) => (
+          <Seat key={item?.id} seat={item} />
         ))}
       </div>
 
       <div className={`flex border p-2 gap-2 ${rowColor}`}>
-        {rightTables?.map((item) => (
-          <Seat key={item} item={item} />
+        {rightSeats?.map((item) => (
+          <Seat key={item?.id} seat={item} />
         ))}
       </div>
     </div>

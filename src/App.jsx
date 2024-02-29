@@ -4,13 +4,13 @@ import Seat from "./components/Seat";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [seats, setSeats] = useState([]);
 
   const fetchData = async () => {
     try {
       const res = await fetch("http://yha.goldenyellowtravel.com/api/v1/rows");
       const data = await res.json();
-      console.log(data);
+      setSeats(data?.data);
     } catch (error) {
       console.error(error);
     }
@@ -20,19 +20,24 @@ function App() {
     fetchData();
   }, []);
 
-  console.log(data);
+  const filteredSeatsArray = seats?.filter((seat) => seat?.name !== "VVIP");
 
-  const vipTables = [1, 2, 3, 4, 5, 6, 7, 8];
-  const tables = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  function groupSeatsByName(seats) {
+    return seats.reduce((groupedSeats, seat) => {
+      const name = seat.name || "Unknown"; // Use 'Unknown' if name is not provided
+      groupedSeats[name] = [...(groupedSeats[name] || []), seat];
+      return groupedSeats;
+    }, {});
+  }
 
-  const splitTables = (tables) => {
-    const mid = Math.ceil(tables.length / 2);
-    const leftTables = tables.slice(0, mid);
-    const rightTables = tables.slice(mid);
-    return { leftTables, rightTables };
+  const groupedSeats = groupSeatsByName(filteredSeatsArray);
+
+  const splitSeats = (filteredSeatsArray) => {
+    const mid = Math.ceil(filteredSeatsArray?.length / 2);
+    const leftSeats = filteredSeatsArray?.slice(0, mid);
+    const rightSeats = filteredSeatsArray?.slice(mid);
+    return { leftSeats, rightSeats };
   };
-
-  const { leftTables, rightTables } = splitTables(tables);
 
   return (
     <>
@@ -41,55 +46,21 @@ function App() {
       </div>
       <div className="overflow-x-auto">
         <div className="min-w-[768px] mb-4 md:w-full flex justify-center gap-2">
-          {vipTables.map((item) => (
-            <Seat key={item} item={item} />
-          ))}
+          {seats?.map((seat) => {
+            if (seat?.name === "VVIP")
+              return <Seat key={seat?.id} seat={seat} />;
+          })}
         </div>
-        <SpecialGuestRow
-          leftTables={leftTables}
-          rightTables={rightTables}
-          rowColor={"bg-blue-800"}
-        />
-        <SpecialGuestRow
-          leftTables={leftTables}
-          rightTables={rightTables}
-          rowColor={"bg-blue-800"}
-        />
-        <SpecialGuestRow
-          leftTables={leftTables}
-          rightTables={rightTables}
-          rowColor={"bg-blue-300"}
-        />
-        <SpecialGuestRow
-          leftTables={leftTables}
-          rightTables={rightTables}
-          rowColor={"bg-blue-300"}
-        />
-        <SpecialGuestRow
-          leftTables={leftTables}
-          rightTables={rightTables}
-          rowColor={"bg-blue-300"}
-        />
-        <SpecialGuestRow
-          leftTables={leftTables}
-          rightTables={rightTables}
-          rowColor={"bg-blue-300"}
-        />
-        <SpecialGuestRow
-          leftTables={leftTables}
-          rightTables={rightTables}
-          rowColor={"bg-blue-300"}
-        />
-        <SpecialGuestRow
-          leftTables={leftTables}
-          rightTables={rightTables}
-          rowColor={"bg-blue-300"}
-        />
-        <SpecialGuestRow
-          leftTables={leftTables}
-          rightTables={rightTables}
-          rowColor={"bg-blue-300"}
-        />
+        {Object.keys(groupedSeats).map((index) => {
+          const { leftSeats, rightSeats } = splitSeats(groupedSeats[index]);
+          return (
+            <SpecialGuestRow
+              key={index}
+              leftSeats={leftSeats}
+              rightSeats={rightSeats}
+            />
+          );
+        })}
       </div>
     </>
   );
