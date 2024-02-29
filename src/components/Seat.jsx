@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
 const Seat = ({ seat }) => {
   const handleToggle = async (id) => {
-    await fetch("http://yha.goldenyellowtravel.com/api/v1/toggle/" + id, {
-      method: "PUT",
-    });
+    try {
+      await fetch("http://yha.goldenyellowtravel.com/api/v1/toggle/" + id, {
+        method: "PUT",
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div
@@ -12,7 +16,7 @@ const Seat = ({ seat }) => {
       }  border border-spacing-2 align-middle items-center justify-center`}
       onClick={() => handleToggle(seat?.id)}
     >
-      <span className="text-white">{seat?.seat}</span>
+      <span className="text-white select-none">{seat?.seat}</span>
     </div>
   );
 };
