@@ -59,6 +59,7 @@ function App() {
         </div>
         {Object.keys(groupedSeats).map((index) => {
           const { leftSeats, rightSeats } = splitSeats(groupedSeats[index]);
+
           return (
             <SpecialGuestRow
               key={index}
