@@ -18,6 +18,12 @@ function App() {
 
   useEffect(() => {
     fetchData();
+
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const filteredSeatsArray = seats?.filter((seat) => seat?.name !== "VVIP");
