@@ -21,7 +21,7 @@ function App() {
 
     const intervalId = setInterval(() => {
       fetchData();
-    }, 5000);
+    }, 500);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -47,9 +47,32 @@ function App() {
 
   return (
     <>
-      <div className="w-full py-5 bg-gray-500 flex items-center justify-center mb-4">
+      <button
+        onClick={() => fetchData()}
+        className="w-full py-5 bg-gray-500 flex items-center gap-3 justify-center mb-4"
+      >
         <p className="font-semibold text-2xl text-white ">Stage</p>
-      </div>
+
+        <div className="flex items-center pt-1">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              color="white"
+              fill="currentColor"
+              className="bi bi-arrow-clockwise"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
+              />
+              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+            </svg>
+          </div>
+        </div>
+      </button>
       <div className="overflow-x-auto">
         <div className="min-w-[768px] mb-4 md:w-full flex justify-center gap-2">
           {seats?.map((seat) => {
